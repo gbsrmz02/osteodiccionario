@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: diccionario
+      MYSQL_USER: osteo
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - ./bases-datos/mysql_inicial.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: datos_osteologicos
+      POSTGRES_USER: osteo
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - ./bases-datos/postgres_inicial.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  api-node:
+    build: ./api-node
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: osteo
+      MYSQL_PASS: 123456
+      MYSQL_DB: diccionario
+    ports:
+      - "3000:3000"
+
+  api-python:
+    build: ./api-python
+    depends_on:
+      - postgres
+    environment:
+      PG_HOST: postgres
+      PG_DB: datos_osteologicos
+      PG_USER: osteo
+      PG_PASS: 123456
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - api-node
+      - api-python

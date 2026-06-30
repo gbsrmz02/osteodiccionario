@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OsteoDiccionario - Criminología</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header class="cabecera">
+        <h1>🦴 OsteoDiccionario</h1>
+        <p>Herramienta de apoyo para reconocimiento e identificación ósea</p>
+    </header>
+
+    <main class="contenedor-principal">
+        <div class="barra-busqueda">
+            <input type="text" id="buscador" placeholder="🔍 Buscar por nombre o término anatómico...">
+            <select id="filtro-region">
+                <option value="todas">Todas las regiones</option>
+                <option value="craneo">Cráneo</option>
+                <option value="cara">Cara</option>
+                <option value="columna">Columna Vertebral</option>
+                <option value="torax">Tórax</option>
+                <option value="miembro_sup">Miembro Superior</option>
+                <option value="pelvis">Pelvis</option>
+                <option value="miembro_inf">Miembro Inferior</option>
+            </select>
+        </div>
+
+        <div class="contenido-flex">
+            <section class="panel-lista">
+                <h2>📋 Catálogo de Huesos</h2>
+                <ul id="lista-huesos"></ul>
+            </section>
+
+            <section class="panel-ficha">
+                <h2>📄 Ficha Técnica Forense</h2>
+                <div id="ficha-contenido" class="ficha-vacia">
+                    Selecciona un hueso de la lista para ver su información detallada
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="pie-pagina">
+        <p>© 2026 OsteoDiccionario | Proyecto académico para Criminología y Antropología Forense</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
